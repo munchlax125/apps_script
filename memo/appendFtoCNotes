@@ -1,0 +1,16 @@
+function appendFtoCNotes() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const lastRow = sheet.getLastRow();
+  
+  for (let i = 1; i <= lastRow; i++) {
+    const fValue = sheet.getRange(i, 6).getValue(); // F열 값 (열 번호 6)
+    if (fValue) {
+      const noteCell = sheet.getRange(i, 3); // C열 셀 (열 번호 3)
+      const existingNote = noteCell.getNote();
+      const newNote = existingNote
+        ? existingNote + '\n\n' + fValue
+        : fValue;
+      noteCell.setNote(newNote);
+    }
+  }
+}
